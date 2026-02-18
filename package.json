@@ -5,17 +5,20 @@
   "main": "server.js",
   "dependencies": {
     "@stripe/stripe-js": "^8.7.0",
+    "@supabase/supabase-js": "^2.97.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "stripe": "^20.3.0",
     "vite": "^7.3.1"
   },
   "devDependencies": {
-    "concurrently": "9.2.1",
+    "concurrently": "^9.2.1",
     "nodemon": "^3.1.11"
   },
   "scripts": {
-    "devStart": "nodemon server.js",
+    "dev:api": "nodemon server.js",
+    "dev:web": "vite --port 5000",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "build": "vite build",
     "start": "node server.js"
   }

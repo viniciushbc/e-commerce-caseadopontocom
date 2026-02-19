@@ -60,6 +60,7 @@ if (error) {
           <button>Adicionar ao carrinho</button>`;
 
           productCard.querySelector("button").onclick = () => {
+                     
             addToCart(product.id, 1)
 
             cartCount.textContent = String(cartCountItems())

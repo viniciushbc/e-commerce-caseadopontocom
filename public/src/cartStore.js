@@ -45,13 +45,10 @@ export function addToCart(productId, qty = 1){
 
     const cart = getCart()
 
-    
-    console.log(cart)
-
     const item = cart.items.find( (produto) => produto.productId === productId )
 
     if (item) {
-        item.qty += qty
+        console.log("Item já adicionado ao carrinho!")
     } else {
         cart.items.push( {productId, qty})
     }

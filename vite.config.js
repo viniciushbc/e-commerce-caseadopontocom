@@ -13,7 +13,10 @@ export default defineConfig( ({mode}) => {
             proxy: {
                 // Toda rota "/api" vai pro back-end (porta 3000)
                 // Every route "/api" goes to the back-end (PORT 3000) 
-                "/api": `${process.env.DOMAIN_URL}:${process.env.API_PORT}`
+                "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
             },
         },
         build: {

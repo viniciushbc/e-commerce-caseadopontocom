@@ -8,7 +8,7 @@ async function initialize() {
   const session = await response.json();
 
   if (session.status == 'open') {
-    window.location.replace(`${process.env.DOMAIN_URL}:${process.env.PORT}/checkout.html`)
+    window.location.replace(`${process.env.DOMAIN_URL}:${process.env.API_PORT}/checkout.html`)
   } else if (session.status == 'complete') {
     document.getElementById('success').classList.remove('hidden');
     document.getElementById('customer-email').textContent = session.customer_email

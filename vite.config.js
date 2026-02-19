@@ -7,6 +7,7 @@ export default defineConfig( ({mode}) => {
     // Allows me to access the front-end via WEB_PORT, and back-end via API_PORT
     return {
         root: "public",
+        envDir: "../",
         server : {
             port: process.env.WEB_PORT,
             proxy: {

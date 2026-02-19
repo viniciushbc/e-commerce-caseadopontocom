@@ -37,10 +37,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
     console.error("create-checkout-session route error: ", err);
     return res.status(500).json({error: err.message})
   }
-
-
-
-
   
 });
 

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Loja</title>
+</head>
+<body>
+  <header style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+    <h1>Produtos</h1>
+    <a href="/cart.html">Carrinho (<span id="cartCount">0</span>)</a>
+  </header>
+
+  <main>
+    <p id="status">Carregando produtos...</p>
+    <div id="grid"></div>
+  </main>
+
+  <script type="module" src="/src/productsPage.js"></script>
+</body>
+</html>

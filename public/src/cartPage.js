@@ -75,6 +75,31 @@ if(!cart.items.length) {
 
 checkoutBtn.onclick = async () => {
     console.log("integrar com api")
+
+    const cart = getCart();
+
+
+    // Enviando a req para a API
+    
+    const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({items: cart.items})
+        
+    });
+
+    
+    const data = await res.json();
+
+    if (!res.ok) {
+        console.log(data);
+        alert("Erro ao criar sessão no stripe");
+        return;
+    }
+
+    window.location.href = data.url
+
+
 }
 
 

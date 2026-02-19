@@ -6,8 +6,17 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-app.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
+app.post('/api/create-checkout-session', async (req, res) => {
+
+  try {
+    
+    const {items} = req.body
+
+    if (!items?.length){
+      return res.status(400).json({error: "Carrinho vazio"})
+    }
+
+    const session = await stripe.checkout.sessions.create({
     ui_mode: 'embedded',
     line_items: [
       {
@@ -17,10 +26,22 @@ app.post('/create-checkout-session', async (req, res) => {
       },
     ],
     mode: 'payment',
-    return_url: `${process.env.DOMAIN_URL}:${process.env.PORT}/return.html?session_id={CHECKOUT_SESSION_ID}`,
+    return_url: `${process.env.DOMAIN_URL}:${process.env.API_PORT}/return.html?session_id={CHECKOUT_SESSION_ID}`,
   });
 
   res.send({clientSecret: session.client_secret});
+
+
+
+  } catch (err) {
+    console.error("create-checkout-session route error: ", err);
+    return res.status(500).json({error: err.message})
+  }
+
+
+
+
+  
 });
 
 app.get('/session-status', async (req, res) => {
@@ -32,4 +53,6 @@ app.get('/session-status', async (req, res) => {
   });
 });
 
-app.listen(process.env.API_PORT);
+app.listen(process.env.API_PORT, () => {
+  console.log("Ouvindo na porta: ", process.env.API_PORT)
+});

@@ -32,4 +32,4 @@ app.get('/session-status', async (req, res) => {
   });
 });
 
-app.listen(process.env.PORT);
+app.listen(process.env.API_PORT);

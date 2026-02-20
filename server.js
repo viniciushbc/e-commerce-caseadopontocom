@@ -22,7 +22,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
       {
         //  Price ID of the product
         price: 'price_1Sx9ygAjHi7WKjcWSS2W4PK9',
-        quantity: 1,
+        quantity: 1
       },
     ],
     mode: 'payment',

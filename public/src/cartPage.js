@@ -62,7 +62,7 @@ if(!cart.items.length) {
             total += (produto.price_cents || 0) * item.qty
 
             const row = document.createElement("div");
-            row.textContent = `${produto.name} x${item.qty} — ${conversionFromCentsToMoney(produto.price_cents,(produto.currency || "BRL").toUpperCase())}`;
+            row.textContent = `${produto.name} — ${conversionFromCentsToMoney(produto.price_cents,(produto.currency || "BRL").toUpperCase())}`;
 
             cartElement.appendChild(row);
         }
@@ -76,8 +76,7 @@ if(!cart.items.length) {
 checkoutBtn.onclick = async () => {
     console.log("integrar com api")
 
-    const cart = getCart();
-
+    const cart = getCart();  
 
     // Enviando a req para a API
     

@@ -1,11 +1,11 @@
 // Busca os produtos no supabase e renderiza na tela do index.html
 // Search the products in supabase and render them all at index.html
 
-import {supabase} from "./supabaseClient.js"
+import { supabase } from "../../lib/supabaseClient.js";
 
-import { addToCart, cartCountItems } from "./cartStore.js"
+import { addToCart, cartCountItems } from "../../store/cartStore.js";
 
-import { conversionFromCentsToMoney } from "./utils.js";
+import { conversionFromCentsToMoney } from "../../utils/utils.js";
 
 const grid = document.getElementById("grid");
 const status = document.getElementById("status")

@@ -12,7 +12,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     
     const {items} = req.body
 
-    if (!items?.length){
+      if (!items?.length){
       return res.status(400).json({error: "Carrinho vazio"})
     }
 

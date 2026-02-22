@@ -4,13 +4,13 @@
 
 // Necessário para buscar os dados dos produtos lá no supabase
 // Necessary to consult the product data in supabase
-import { supabase } from "./supabaseClient.js";
+import { supabase } from "../../lib/supabaseClient.js";
 
 // Função pra ler o carrinho do localStorage
 // Function to read the localStorage cart
-import { getCart } from "./cartStore.js";
+import { getCart } from "../../store/cartStore.js";
 
-import { conversionFromCentsToMoney } from "./utils";
+import { conversionFromCentsToMoney } from "../../utils/utils.js";
 
 const cartElement = document.getElementById("cart");     // lista de itens, items list
 const totalElement = document.getElementById("total");   // total

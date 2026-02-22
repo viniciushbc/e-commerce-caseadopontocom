@@ -1,27 +1,23 @@
 import { defineConfig, loadEnv } from "vite";
+import { resolve } from "path";
 
-export default defineConfig( ({mode}) => {
-    const env = loadEnv(mode, process.cwd(), "");
-
-    // Me permite acessar o front com a WEB_PORT e o back-end com a API_PORT
-    // Allows me to access the front-end via WEB_PORT, and back-end via API_PORT
-    return {
-        root: "public",
-        envDir: "../",
-        server : {
-            port: process.env.WEB_PORT,
-            proxy: {
-                // Toda rota "/api" vai pro back-end (porta 3000)
-                // Every route "/api" goes to the back-end (PORT 3000) 
-                "/api": {
-        target: "http://localhost:3000",
-        changeOrigin: true,
+export default defineConfig({
+  root: resolve(__dirname, "frontend"),
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
+  build: {
+    outDir: resolve(__dirname, "frontend/dist"),
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "frontend/index.html"),
+        cart: resolve(__dirname, "frontend/cart.html"),
+        checkout: resolve(__dirname, "frontend/checkout.html"),
+        ret: resolve(__dirname, "frontend/return.html"),
       },
-            },
-        },
-        build: {
-            outDir: "../dist",
-            emptyOutDir: true,
-        },
-    }
-})
+    },
+  },
+});

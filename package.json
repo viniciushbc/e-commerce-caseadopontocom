@@ -2,7 +2,7 @@
   "name": "caseadopontocom",
   "version": "1.0.0",
   "description": "loja",
-  "main": "server.js",
+  "main": "backend/server.js",
   "dependencies": {
     "@stripe/stripe-js": "^8.7.0",
     "@supabase/supabase-js": "^2.97.0",
@@ -16,10 +16,10 @@
     "nodemon": "^3.1.11"
   },
   "scripts": {
-    "dev:api": "nodemon server.js",
+    "dev:api": "nodemon backend/server.js",
     "dev:web": "vite --port 5000",
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "build": "vite build",
-    "start": "node server.js"
+    "start": "node backend/server.js"
   }
 }

@@ -29,7 +29,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     cancel_url: `${process.env.DOMAIN_URL}:${process.env.WEB_PORT}/index.html`,
   });
 
-  res.send({clientSecret: session.client_secret});
+  res.send({url: session.url});
 
 
 

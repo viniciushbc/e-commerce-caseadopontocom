@@ -17,7 +17,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
 
     const session = await stripe.checkout.sessions.create({
-    ui_mode: 'embedded',
+    mode: 'payment',
     line_items: [
       {
         //  Price ID of the product
@@ -25,8 +25,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
         quantity: 1
       },
     ],
-    mode: 'payment',
-    return_url: `${process.env.DOMAIN_URL}:${process.env.API_PORT}/return.html?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${process.env.DOMAIN_URL}:${process.env.WEB_PORT}/return.html?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.DOMAIN_URL}:${process.env.WEB_PORT}/index.html`,
   });
 
   res.send({clientSecret: session.client_secret});

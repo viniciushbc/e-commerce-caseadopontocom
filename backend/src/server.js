@@ -1,9 +1,37 @@
-require('dotenv').config()
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
-const express = require('express');
+import "dotenv/config";
+import Stripe from "stripe";
+import express from "express";
+import path from 'path'
+import { fileURLToPath } from 'url';
+
+import { supabaseAdmin } from './services/supabaseAdmin.js';
+import { adminAuth } from './middlewares/adminAuth.js';
+import { adminCreateProduct } from './services/adminCreateProduct.service.js';
+import { adminRoutes } from './routes/admin.routes.js';
+
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY)
+
 const app = express();
 app.use(express.json());
 app.use(express.static('public'));
+
+// Services
+const adminCreateProductService = adminCreateProduct({supabase: supabaseAdmin})
+
+// Routes
+app.use("/api/admin", adminRoutes({adminCreateProductService}))
+
+// get pagina admin, protegida
+app.get("/admin", adminAuth, (req, res) => {
+  const adminPath = path.join(__dirname, "./public/admin.html")
+  res.sendFile(adminPath)
+})
+
+
 
 
 app.post('/api/create-checkout-session', async (req, res) => {
@@ -48,6 +76,14 @@ app.get('/session-status', async (req, res) => {
     customer_email: session.customer_details.email
   });
 });
+
+
+
+
+
+
+
+
 
 app.listen(process.env.API_PORT, () => {
   console.log("Ouvindo na porta: ", process.env.API_PORT)

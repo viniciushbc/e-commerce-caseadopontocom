@@ -3,6 +3,8 @@ import { adminAuth } from '../middlewares/adminAuth.js';
 import { upload } from '../services/multer.js';
 
 export function adminRoutes({ adminCreateProductService}) {
+
+    // Criando uma rota pro admin
     const router = express.Router();
 
 
@@ -15,10 +17,13 @@ export function adminRoutes({ adminCreateProductService}) {
         ]),
         async (req, res) => {
             try {
+
+                // 
                 const {name, description, price, currency} = req.body
                 const images = req.files?.images || [];
                 const pdf = req.files?.file?.[0];
-
+console.log("pdf ok?", !!pdf, "pdf mimetype:", pdf?.mimetype);
+console.log("images len:", images?.length, "first mimetype:", images?.[0]?.mimetype);
                 const result = await adminCreateProductService.create({
                     name,
                     description,

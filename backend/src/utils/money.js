@@ -1,3 +1,5 @@
+// Conversão - Conversion
+
 export function stringMoneyToIntCents(amount){
     const string = String(amount).trim();
 

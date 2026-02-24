@@ -26,7 +26,7 @@ export function searchProductsDB(supabase){
             const uniqueIDs = [...new Set(ids)]
 
             // SELECT FROM DATABASE
-            const {data, error} = await supabase.from("products").select("id,price_cents,name,").eq("is_active", true).in("id", uniqueIDs);
+            const {data, error} = await supabase.from("products").select("id,price_cents,name,currency,file_path").eq("is_active", true).in("id", uniqueIDs);
 
             if (error) throw new Error("DB_PRODUCTS_QUERY_FAILED")
 

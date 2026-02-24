@@ -21,7 +21,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     line_items: [
       {
         //  Price ID of the product
-        price: 'price_1Sx9ygAjHi7WKjcWSS2W4PK9',
+        price: 'price_1T448AAjHi7WKjcWXAA22m1S',
         quantity: 1
       },
     ],

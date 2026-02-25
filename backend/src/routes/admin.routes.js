@@ -22,8 +22,6 @@ export function adminRoutes({ adminCreateProductService}) {
                 const {name, description, price, currency} = req.body
                 const images = req.files?.images || [];
                 const pdf = req.files?.file?.[0];
-console.log("pdf ok?", !!pdf, "pdf mimetype:", pdf?.mimetype);
-console.log("images len:", images?.length, "first mimetype:", images?.[0]?.mimetype);
                 const result = await adminCreateProductService.create({
                     name,
                     description,

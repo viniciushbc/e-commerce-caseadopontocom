@@ -6,12 +6,6 @@ export function productImageStorageRepo(supabase) {
 
         // UPLOAD
         async uploadImages({productId, images}) {
-            console.log("IMG REPO received:", {
-    productId,
-    imagesIsArray: Array.isArray(images),
-    len: images?.length,
-    firstMimetype: images?.[0]?.mimetype
-  });
             const uploadedPaths = [];
 
             for (let i=0 ; i< images.length ; i++){

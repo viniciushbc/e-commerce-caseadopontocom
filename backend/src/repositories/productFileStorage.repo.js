@@ -3,16 +3,14 @@ import { extFromFile } from "../utils/files.js";
 export function productFileStorageRepo(supabase) {
 
     return {
-        async uploadPdf({productId, pdfFile}) {
-
-            console.log("PDF REPO received:", { productId, hasPdf: !!pdf, mimetype: pdf?.mimetype });
-            const fileExtension = extFromFile(pdfFile.mimetype, pdfFile.originalname);
+        async uploadPdf({productId, pdf}) {
+            const fileExtension = extFromFile(pdf.mimetype, pdf.originalname);
             const storagePath = `${productId}/file.${fileExtension}`
 
             const {error} = await supabase.storage
                 .from("product-files")
-                .upload(storagePath, pdfFile.buffer, {
-                    contentType: pdfFile.mimetype,
+                .upload(storagePath, pdf.buffer, {
+                    contentType: pdf.mimetype,
                     upsert: true
                 })
             

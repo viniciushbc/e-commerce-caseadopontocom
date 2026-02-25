@@ -12,8 +12,6 @@ export function adminCreateProduct({
         async create(payload) {
 
             const {name, description, price_cents, currency, images, pdf} = productDataValidation(payload);
-console.log("pdf ok?", !!pdf, "pdf mimetype:", pdf?.mimetype);
-console.log("images len:", images?.length, "first mimetype:", images?.[0]?.mimetype);
             const productCreated = await productRepo.insertProduct({
                 name,
                 description,

@@ -14,6 +14,9 @@ import { productFileStorageRepo } from "./repositories/productFileStorage.repo.j
 import { productImageStorageRepo } from "./repositories/productImageStorage.repo.js";
 import { adminCreateProduct } from "./services/adminCreateProduct.service.js";
 
+
+import { buildStripeLineItems } from "./utils/buildStripeLineItems.js";
+
 // __dirname (ESM)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +51,8 @@ app.get("/admin", adminAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
+
+
 // Stripe Checkout
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
@@ -57,14 +62,13 @@ app.post("/api/create-checkout-session", async (req, res) => {
       return res.status(400).json({ error: "Carrinho vazio" });
     }
 
+    const ids = items.map((i) => i.productId)
+    const products = await productsDb.findActiveByIds(ids)
+    const line_items = buildStripeLineItems(products)    
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      line_items: [
-        {
-          price: "price_1T448AAjHi7WKjcWXAA22m1S",
-          quantity: 1,
-        },
-      ],
+      line_items,
       success_url: `${process.env.DOMAIN_URL}:${process.env.WEB_PORT}/return.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.DOMAIN_URL}:${process.env.WEB_PORT}/index.html`,
     });

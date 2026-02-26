@@ -30,14 +30,25 @@ if(!cart.items.length) {
     // Faz uma lista de ID's que estão no carrinho
     // Make the list of ID's of the items that are in the cart
     const itemsIDs = cart.items.map((item)=> item.productId)
+    console.log(itemsIDs)
+    console.log("Teste:", JSON.stringify({ids: itemsIDs}))
 
-    // Consulta ao supabase para conferir se os produtos do carrinho estão no banco
-    // Checks if the products in the cart are present in the supabase database
-    const {data, error} = await supabase.from("products").select("id,name,price_cents,currency").in("id",itemsIDs) // WHERE id IN itemsIDs
 
-    if (error) {
+    // Req para buscar os produtos correspondentes do DB e seus dados
+    // Consulta através dos ID's
+    const res = await fetch("/api/cart/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ids: itemsIDs})
+        
+    });
+
+    const data = (await res.json()).activeProducts
+    console.log("FRONT RES: ", data)
+
+    // Resposta da API não condiz com os ID's do carrinho
+    if (itemsIDs.length!=data.length) {
         cartElement.textContent = "Erro ao carregar carrinho..."
-        console.log("Supabase error: ", error)
     } else {
 
         // Crio um mapa [id, produto]
@@ -46,14 +57,11 @@ if(!cart.items.length) {
 
         let total = 0 // Em centavos, in cents
 
-
         cartElement.innerHTML = ""
-
 
         for (const item of cart.items){
 
             const produto = mapOfProductsById[item.productId]
-
 
             // Se não encontrou o produto (Foi removido), passa pro próximo
             // If did not find the product (Got removed), skip

@@ -80,6 +80,28 @@ app.post("/api/create-checkout-session", async (req, res) => {
   }
 });
 
+// Post - conferir itens do carrinho
+app.post("/api/cart/products", async(req, res) => {
+
+  console.log("rota Post acessada")
+  const {ids} = req.body
+
+
+  const activeProducts = await productsDb.findActiveByIds(ids)
+
+  //console.log("PRODUTOS NO DB: ", activeProducts)
+  return res.send({
+    status: 200,
+    activeProducts
+  })
+
+  //const {data, error} = await supabase.from("products").select("id,name,price_cents,currency").in("id",itemsIDs) // WHERE id IN itemsIDs
+})
+
+
+
+
+
 app.get("/session-status", async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
 

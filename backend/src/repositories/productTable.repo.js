@@ -59,7 +59,11 @@ export function productRepo(supabase){
             const uniqueIDs = [...new Set(ids)]
 
             // SELECT FROM DATABASE
-            const {data, error} = await supabase.from("products").select("id,price_cents,name,currency,file_path").eq("is_active", true).in("id", uniqueIDs);
+            const {data, error} = await supabase
+                .from("products")
+                .select("id,price_cents,name,currency,file_path")
+                .eq("is_active", true)
+                .in("id", uniqueIDs);
 
             if (error) throw Object.assign(new Error("DB_PRODUCT_QUERY_ERROR"), {status:500, cause:error})
 

@@ -2,6 +2,7 @@
   "name": "caseadopontocom",
   "version": "1.0.0",
   "description": "loja",
+  "type": "module",
   "main": "backend/server.js",
   "dependencies": {
     "@stripe/stripe-js": "^8.7.0",

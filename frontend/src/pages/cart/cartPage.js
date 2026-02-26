@@ -35,7 +35,7 @@ if(!cart.items.length) {
 
 
     // Req para buscar os produtos correspondentes do DB e seus dados
-    // Consulta através dos ID's
+    // Consulta através dos ID's do carrinho
     const res = await fetch("/api/cart/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,8 +43,10 @@ if(!cart.items.length) {
         
     });
 
+
+    // res vem no formado {status:, activeProducts: }
+    // Filtrando apenas pelos produtos
     const data = (await res.json()).activeProducts
-    console.log("FRONT RES: ", data)
 
     // Resposta da API não condiz com os ID's do carrinho
     if (itemsIDs.length!=data.length) {

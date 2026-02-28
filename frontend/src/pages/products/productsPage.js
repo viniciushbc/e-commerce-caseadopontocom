@@ -18,13 +18,20 @@ if (cartCount) {
   cartCount.textContent = String(cartCountItems())
 }
 
-const {data, error} = await supabase.from("products").select("id,name,description,price_cents,is_active").eq("is_active", true).order("name", {ascending: true})
+const res = await fetch("/api/products", {
+  method: "GET",
+  headers: {"Content-Type": "application/json"},
 
-console.log("Primeiro produto: ", data?.[0])
+})
 
-if (error) {
+
+// RSOLVER PQ ISSO DÁ UNDEFINED
+const data = await res.json()
+
+console.log("Primeiro produto: ", data)
+
+if (!data) {
     status.textContent = "Erro ao carregar produtos..."
-    console.log("Supabase error: ", error)
 } else {
 
     // Remove o status padrão "Carregando..."

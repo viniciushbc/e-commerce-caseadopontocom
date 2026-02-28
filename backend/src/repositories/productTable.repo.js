@@ -4,7 +4,7 @@
 export function productRepo(supabase){
     return {
 
-        // ADD
+        // ADD (POST)
         async insertProduct({name, description, price_cents, currency, is_active, file_path}) {
             const {data, error} = await supabase
                 .from("products")
@@ -24,7 +24,7 @@ export function productRepo(supabase){
             return data // {id}
         },
 
-        // UPDATE -- (Usar quando fizer upload de PDF)
+        // UPDATE -- (Usar quando fizer upload de PDF) 
         async updateFilePath(productId, file_path){
             const {error} = await supabase
                 .from("products")
@@ -42,6 +42,14 @@ export function productRepo(supabase){
                 .eq("id", productId)
             
             if(error) throw Object.assign(new Error("DB_PRODUCT_DELETE_ERROR"), {status:500, cause:error})
+        },
+
+        async getProducts(){
+            const {data, error} = await supabase.from("products").select("id,name,description,price_cents,is_active").eq("is_active", true).order("name", {ascending: true})
+            
+            if(error) throw Object.assign(new Error("DB_PRODUCT_GET_ERROR"), {status: 500, cause: error})
+
+            return data ?? []
         },
 
         // GET - WHERE IS_ACTIVE = 1

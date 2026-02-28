@@ -85,18 +85,28 @@ app.post("/api/cart/products", async(req, res) => {
 
   console.log("rota Post acessada")
   const {ids} = req.body
-
-
   const activeProducts = await productsDb.findActiveByIds(ids)
 
-  //console.log("PRODUTOS NO DB: ", activeProducts)
   return res.send({
     status: 200,
     activeProducts
   })
-
-  //const {data, error} = await supabase.from("products").select("id,name,price_cents,currency").in("id",itemsIDs) // WHERE id IN itemsIDs
 })
+
+app.get("/api/products", async (req, res)=> {
+  console.log("Rota GET acessada!")
+
+  const produtos = await productsDb.getProducts()
+  return res.send({
+    status: 200,
+    produtos
+  })
+
+
+})
+
+
+
 
 
 

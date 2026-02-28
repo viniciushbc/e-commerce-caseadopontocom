@@ -82,8 +82,6 @@ app.post("/api/create-checkout-session", async (req, res) => {
 
 // Post - conferir itens do carrinho
 app.post("/api/cart/products", async(req, res) => {
-
-  console.log("rota Post acessada")
   const {ids} = req.body
   const activeProducts = await productsDb.findActiveByIds(ids)
 
@@ -93,16 +91,14 @@ app.post("/api/cart/products", async(req, res) => {
   })
 })
 
-app.get("/api/products", async (req, res)=> {
-  console.log("Rota GET acessada!")
 
+// Get - Consultar itens do supabase
+app.get("/api/products", async (req, res)=> {
   const produtos = await productsDb.getProducts()
   return res.send({
     status: 200,
     produtos
   })
-
-
 })
 
 

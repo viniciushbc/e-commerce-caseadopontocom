@@ -1,8 +1,5 @@
 // Busca os produtos no supabase e renderiza na tela do index.html
 // Search the products in supabase and render them all at index.html
-
-import { supabase } from "../../lib/supabaseClient.js";
-
 import { addToCart, cartCountItems } from "../../store/cartStore.js";
 
 import { conversionFromCentsToMoney } from "../../utils/utils.js";
@@ -18,17 +15,15 @@ if (cartCount) {
   cartCount.textContent = String(cartCountItems())
 }
 
+
+// Requisicao pro back-end consultar os produtos no supabase
 const res = await fetch("/api/products", {
   method: "GET",
   headers: {"Content-Type": "application/json"},
 
 })
 
-
-// RSOLVER PQ ISSO DÁ UNDEFINED
-const data = await res.json()
-
-console.log("Primeiro produto: ", data)
+const data = (await res.json()).produtos
 
 if (!data) {
     status.textContent = "Erro ao carregar produtos..."

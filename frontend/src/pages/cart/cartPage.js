@@ -1,11 +1,6 @@
 // Lê o carrinho do localStorage, calcula os preços e renderiza no cart.html
 // Read the cart in the localStorage, calculate the price and renders it at cart.html
 
-
-// Necessário para buscar os dados dos produtos lá no supabase
-// Necessary to consult the product data in supabase
-import { supabase } from "../../lib/supabaseClient.js";
-
 // Função pra ler o carrinho do localStorage
 // Function to read the localStorage cart
 import { getCart } from "../../store/cartStore.js";

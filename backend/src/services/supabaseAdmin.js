@@ -1,9 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
 
-export const supabaseAdmin = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-)
+export function makeSupabaseAdmin() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url) throw new Error("SUPABASE_URL is required");
+  if (!key) throw new Error("SUPABASE_SERVICE_ROLE_KEY is required");
+
+  return createClient(url, key, {
+    auth: { persistSession: false },
+  });
+}
 
 // E entao chamaremos supabaseAdmin() daqui em diante
 // So we are going to call supabaseAdmin() from now on 

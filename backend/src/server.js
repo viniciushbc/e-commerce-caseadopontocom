@@ -1,10 +1,10 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import express from "express";
 import Stripe from "stripe";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { supabaseAdmin } from "./services/supabaseAdmin.js";
+import { makeSupabaseAdmin } from "./services/supabaseAdmin.js";
 import { adminAuth } from "./middlewares/adminAuth.js";
 import { adminRoutes } from "./routes/admin.routes.js";
 
@@ -14,12 +14,15 @@ import { productFileStorageRepo } from "./repositories/productFileStorage.repo.j
 import { productImageStorageRepo } from "./repositories/productImageStorage.repo.js";
 import { adminCreateProduct } from "./services/adminCreateProduct.service.js";
 
-
 import { buildStripeLineItems } from "./utils/buildStripeLineItems.js";
 
 // __dirname (ESM)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Carrega o .env do backend (backend/.env)
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+const supabaseAdmin = makeSupabaseAdmin();
 
 // Stripe
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);

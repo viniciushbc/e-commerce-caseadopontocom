@@ -57,6 +57,23 @@ export function addToCart(productId, qty = 1){
 
 }
 
+export function removeFromCart(productId){
+
+    const cart = getCart()
+
+    const item = cart.items.find((produto)=>produto.productId === productId)
+
+    if (item) {
+        // Seta o carrinho somente com os itens diferentes do Id passado (Remoção de produto)
+        cart.items = cart.items.filter((produto)=>produto.productId !== productId)
+    } else {
+        console.log("Item não consta no carrinho...")
+    }
+
+    saveCart(cart)
+
+}
+
 
 export function cartCountItems() {
 

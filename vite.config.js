@@ -1,25 +1,31 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import { resolve } from "path";
 
+const r = (p) => resolve(process.cwd(), p);
+
 export default defineConfig({
-  root: resolve(__dirname, "frontend"),
+  root: r("frontend"),
+
   server: {
+    port: 5000,
+    strictPort: true,
     proxy: {
       "/api": {
         target: "http://localhost:3000",
-        changeOrigin: true
+        changeOrigin: true,
       },
     },
   },
+
   build: {
-    outDir: resolve(__dirname, "frontend/dist"),
+    outDir: r("frontend/dist"),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "frontend/index.html"),
-        cart: resolve(__dirname, "frontend/cart.html"),
-        checkout: resolve(__dirname, "frontend/checkout.html"),
-        ret: resolve(__dirname, "frontend/return.html"),
+        main: r("frontend/index.html"),
+        cart: r("frontend/cart.html"),
+        checkout: r("frontend/checkout.html"),
+        ret: r("frontend/return.html"),
       },
     },
   },

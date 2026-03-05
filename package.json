@@ -19,7 +19,7 @@
   },
   "scripts": {
     "dev:api": "nodemon backend/src/server.js",
-    "dev:web": "vite --root frontend --port 5000",
+    "dev:web": "vite",
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "build": "vite build",
     "start": "node backend/src/server.js"

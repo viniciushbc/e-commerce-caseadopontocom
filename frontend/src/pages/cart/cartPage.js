@@ -1,109 +1,100 @@
-// Lê o carrinho do localStorage, calcula os preços e renderiza no cart.html
-// Read the cart in the localStorage, calculate the price and renders it at cart.html
-
-// Função pra ler o carrinho do localStorage
-// Function to read the localStorage cart
-import { getCart } from "../../store/cartStore.js";
-
+import { getCart, removeFromCart } from "../../store/cartStore.js";
 import { conversionFromCentsToMoney } from "../../utils/utils.js";
 
-const cartElement = document.getElementById("cart");     // lista de itens, items list
-const totalElement = document.getElementById("total");   // total
-const checkoutBtn = document.getElementById("checkout")
+const cartElement = document.getElementById("cart");
+const totalElement = document.getElementById("total");
+const checkoutBtn = document.getElementById("checkout");
 
-const cart = getCart();
+async function renderCart() {
+  const cart = getCart();
 
-
-// Se não houver itens, retornar 0
-// If there is no items, return 0
-
-if(!cart.items.length) {
-    cartElement.textContent = "Carrinho vazio!"
+  // estado vazio
+  if (!cart.items.length) {
+    cartElement.textContent = "Carrinho vazio!";
     totalElement.textContent = conversionFromCentsToMoney(0);
-} else {
+    checkoutBtn.disabled = true;
+    return;
+  }
 
-    // Faz uma lista de ID's que estão no carrinho
-    // Make the list of ID's of the items that are in the cart
-    const itemsIDs = cart.items.map((item)=> item.productId)
-    console.log(itemsIDs)
-    console.log("Teste:", JSON.stringify({ids: itemsIDs}))
+  checkoutBtn.disabled = false;
 
+  const itemsIDs = cart.items.map((item) => item.productId);
 
-    // Req para buscar os produtos correspondentes do DB e seus dados
-    // Consulta através dos ID's do carrinho
-    const res = await fetch("/api/cart/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ids: itemsIDs})
-        
-    });
+  const res = await fetch("/api/cart/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids: itemsIDs }),
+  });
 
+  const json = await res.json();
+  const data = json.activeProducts;
 
-    // res vem no formado {status:, activeProducts: }
-    // Filtrando apenas pelos produtos
-    const data = (await res.json()).activeProducts
+  if (itemsIDs.length !== data.length) {
+    cartElement.textContent = "Erro ao carregar carrinho...";
+    totalElement.textContent = conversionFromCentsToMoney(0);
+    return;
+  }
 
-    // Resposta da API não condiz com os ID's do carrinho
-    if (itemsIDs.length!=data.length) {
-        cartElement.textContent = "Erro ao carregar carrinho..."
-    } else {
+  const mapOfProductsById = Object.fromEntries(data.map((p) => [p.id, p]));
 
-        // Crio um mapa [id, produto]
-        // Create a map of [id, product]
-        const mapOfProductsById = Object.fromEntries(data.map( (p) => [p.id, p] ))
+  let total = 0;
+  cartElement.innerHTML = "";
 
-        let total = 0 // Em centavos, in cents
+  for (const item of cart.items) {
+    const produto = mapOfProductsById[item.productId];
+    if (!produto) continue;
 
-        cartElement.innerHTML = ""
+    total += (produto.price_cents || 0) * item.qty;
 
-        for (const item of cart.items){
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.justifyContent = "space-between";
+    row.style.gap = "12px";
+    row.style.marginBottom = "8px";
 
-            const produto = mapOfProductsById[item.productId]
+    const info = document.createElement("span");
+    info.textContent = `${produto.name} — ${conversionFromCentsToMoney(
+      produto.price_cents,
+      (produto.currency || "BRL").toUpperCase()
+    )}`;
 
-            // Se não encontrou o produto (Foi removido), passa pro próximo
-            // If did not find the product (Got removed), skip
-            if(!produto) continue;
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.textContent = "Remover";
 
-            total += (produto.price_cents || 0) * item.qty
+    removeBtn.onclick = async () => {
+      removeFromCart(item.productId);
+      await renderCart(); // re-renderiza sem dar refresh na página
+    };
 
-            const row = document.createElement("div");
-            row.textContent = `${produto.name} — ${conversionFromCentsToMoney(produto.price_cents,(produto.currency || "BRL").toUpperCase())}`;
+    row.appendChild(info);
+    row.appendChild(removeBtn);
 
-            cartElement.appendChild(row);
-        }
+    cartElement.appendChild(row);
+  }
 
-        totalElement.textContent = conversionFromCentsToMoney(total)
-
-    }
-
+  totalElement.textContent = conversionFromCentsToMoney(total);
 }
+
+await renderCart();
 
 checkoutBtn.onclick = async () => {
-    console.log("integrar com api")
+  const cart = getCart();
 
-    const cart = getCart();  
+  const res = await fetch("/api/create-checkout-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ items: cart.items }),
+  });
 
-    // Enviando a req para a API
-    
-    const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({items: cart.items})
-        
-    });
+  const data = await res.json();
 
-    
-    const data = await res.json();
+  if (!res.ok) {
+    console.log(data);
+    alert("Erro ao criar sessão no stripe");
+    return;
+  }
 
-    if (!res.ok) {
-        console.log(data);
-        alert("Erro ao criar sessão no stripe");
-        return;
-    }
-
-    window.location.href = data.url
-
-
-}
-
-
+  window.location.href = data.url;
+};

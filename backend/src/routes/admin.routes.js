@@ -19,11 +19,12 @@ export function adminRoutes({ adminCreateProductService}) {
             try {
 
                 // 
-                const {name, description, price, currency} = req.body
+                const {name, category, description, price, currency} = req.body
                 const images = req.files?.images || [];
                 const pdf = req.files?.file?.[0];
                 const result = await adminCreateProductService.create({
                     name,
+                    category,
                     description,
                     price,
                     currency: currency || "brl",

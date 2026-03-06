@@ -5,11 +5,12 @@ export function productRepo(supabase){
     return {
 
         // ADD (POST)
-        async insertProduct({name, description, price_cents, currency, is_active, file_path}) {
+        async insertProduct({name, category, description, price_cents, currency, is_active, file_path}) {
             const {data, error} = await supabase
                 .from("products")
                 .insert({
                     name,
+                    category,
                     description,
                     price_cents,
                     currency,

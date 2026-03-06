@@ -4,11 +4,14 @@ import { stringMoneyToIntCents } from "./money.js";
 // Vou usar essa função antes de criar/manipular um produto, para validar se as entradas são válidas 
 // Going to use this function before creating/manipulating a product, to validate its inputs
 
-export function productDataValidation({name, description, price, currency="brl", images, pdf}) {
+export function productDataValidation({name, category, description, price, currency="brl", images, pdf}) {
 
         // name
         const nameTrimmed = (name ?? "").trim();
         if(!nameTrimmed) throw Object.assign(new Error("NAME_REQUIRED"), {status:400})
+        
+        const categoryTrimmed = (category ?? "").trim();
+        if(!categoryTrimmed) throw Object.assign(new Error("CATEGORY_REQUIRED"), {status:400})
         
         // description
         // "description" é NULLABLE, não precisa validar
@@ -28,6 +31,7 @@ export function productDataValidation({name, description, price, currency="brl",
         
         return {
             name: nameTrimmed,
+            category: categoryTrimmed,
             description: descriptionTrimmed,
             price_cents,
             currency,

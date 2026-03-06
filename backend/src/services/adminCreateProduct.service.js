@@ -11,9 +11,10 @@ export function adminCreateProduct({
 
         async create(payload) {
 
-            const {name, description, price_cents, currency, images, pdf} = productDataValidation(payload);
+            const {name, category, description, price_cents, currency, images, pdf} = productDataValidation(payload);
             const productCreated = await productRepo.insertProduct({
                 name,
+                category,
                 description,
                 price_cents,
                 currency,

@@ -1,59 +1,300 @@
 <mxfile host="65bd71144e">
-    <diagram id="vDNGla4sGgg_tqNrSYIV" name="Page-1">
-        <mxGraphModel dx="1159" dy="744" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <diagram id="ecommerce-system" name="Sistema E-commerce">
+        <mxGraphModel dx="1865" dy="109" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="2600" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="4" style="edgeStyle=none;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="3">
+                <mxCell id="bg-c" value="FLUXO DO CLIENTE" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="50" width="1250" height="890" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-lbl1" value="PASSO 1 — Cliente abre a pagina inicial" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#bdd7ee;strokeColor=#6c8ebf;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-c">
+                    <mxGeometry x="10" y="40" width="320" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-idx" value="&lt;b&gt;index.html&lt;/b&gt;&lt;br/&gt;productsPage.js&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Pagina inicial. Assim que e aberta,&lt;br/&gt;ja busca os produtos no servidor.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="bg-c" vertex="1">
+                    <mxGeometry x="20" y="70" width="185" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-r-products" value="&lt;b&gt;GET /api/products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Rota que devolve todos os produtos&lt;br/&gt;ativos cadastrados no banco.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-c" vertex="1">
+                    <mxGeometry x="275" y="78" width="205" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-svc-get" value="&lt;b&gt;productRepo.getProducts()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Consulta o banco, filtra is_active=true,&lt;br/&gt;ordena por nome.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-c" vertex="1">
+                    <mxGeometry x="550" y="70" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-db-p1" value="Supabase DB&lt;br/&gt;&lt;b&gt;tabela: products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;nome, preco, descricao,&lt;br/&gt;categoria, caminho PDF&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="bg-c">
+                    <mxGeometry x="855" y="50" width="160" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c1" value="ao abrir a pagina, busca produtos" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-idx" target="c-r-products" edge="1">
+                    <mxGeometry x="0.4873" y="-47" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c2" value="consulta o banco" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-r-products" target="c-svc-get" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c3" value="SELECT WHERE is_active=true" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-svc-get" target="c-db-p1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c-lbl2" value="PASSO 2 — Cliente ve os produtos e adiciona ao carrinho" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#bdd7ee;strokeColor=#6c8ebf;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-c">
+                    <mxGeometry x="10" y="210" width="420" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-cart-store" value="&lt;b&gt;cartStore.js&lt;/b&gt; — localStorage&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Salva o produto no navegador do cliente,&lt;br/&gt;sem precisar de login ou servidor.&lt;br/&gt;addToCart() | getCart() | removeFromCart()&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="bg-c" vertex="1">
+                    <mxGeometry x="20" y="240" width="225" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c4" value="cliente clica &#39;Adicionar ao carrinho&#39;" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-idx" target="c-cart-store" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-110" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="c-lbl3" value="PASSO 3 — Cliente abre o carrinho (itens sao validados no banco antes de exibir)" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#bdd7ee;strokeColor=#6c8ebf;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-c">
+                    <mxGeometry x="10" y="390" width="580" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-cart-html" value="&lt;b&gt;cart.html&lt;/b&gt;&lt;br/&gt;cartPage.js&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Mostra os itens do carrinho,&lt;br/&gt;o total e o botao de finalizar.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="bg-c" vertex="1">
+                    <mxGeometry x="20" y="420" width="185" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-r-cart" value="&lt;b&gt;POST /api/cart/products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Verifica quais produtos do carrinho ainda&lt;br/&gt;estao ativos no banco. Evita cobrar por&lt;br/&gt;produto que foi desativado.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-c" vertex="1">
+                    <mxGeometry x="275" y="415" width="220" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-svc-find" value="&lt;b&gt;productRepo.findActiveByIds()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Busca no banco pelos IDs do carrinho&lt;br/&gt;e filtra somente os ativos.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-c" vertex="1">
+                    <mxGeometry x="555" y="425" width="220" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-db-p3" value="Supabase DB&lt;br/&gt;&lt;b&gt;tabela: products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Confirma quais produtos&lt;br/&gt;estao ativos.&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="bg-c">
+                    <mxGeometry x="855" y="408" width="155" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c5" value="cliente navega para o carrinho" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-cart-store" target="c-cart-html" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-110" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c6" value="valida itens do carrinho no banco" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-cart-html" target="c-r-cart" edge="1">
+                    <mxGeometry x="0.0345" y="28" relative="1" as="geometry">
+                        <mxPoint y="1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c7" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="bg-c" source="c-r-cart" target="c-svc-find" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="admin" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="60" y="50" width="120" height="60" as="geometry"/>
+                <mxCell id="e-c8" value="SELECT WHERE id IN (...) AND is_active=true" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-svc-find" target="c-db-p3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="11" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="10">
+                <mxCell id="c-lbl4" value="PASSO 4 — Cliente clica &#39;Finalizar Compra&#39;: sessao de pagamento e criada no Stripe" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#bdd7ee;strokeColor=#6c8ebf;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-c">
+                    <mxGeometry x="10" y="570" width="620" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-r-checkout" value="&lt;b&gt;POST /api/create-checkout-session&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Cria uma sessao de pagamento no Stripe.&lt;br/&gt;Valida se o carrinho nao esta vazio.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-c" vertex="1">
+                    <mxGeometry x="275" y="598" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-stripe-util" value="&lt;b&gt;buildStripeLineItems()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Monta os itens no formato do Stripe&lt;br/&gt;(nome, preco, qtd) e cria a sessao.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-c" vertex="1">
+                    <mxGeometry x="555" y="590" width="220" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="c-stripe" value="&lt;b&gt;Stripe&lt;/b&gt;&lt;br/&gt;Checkout Session&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Plataforma de pagamento.&lt;br/&gt;Gera pagina segura de pagamento&lt;br/&gt;(cartao, pix etc).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="bg-c" vertex="1">
+                    <mxGeometry x="855" y="578" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c9" value="cliente clica &#39;Finalizar Compra&#39;" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-cart-html" target="c-r-checkout" edge="1">
+                    <mxGeometry x="-0.6541" y="-30" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c10" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="bg-c" source="c-r-checkout" target="c-stripe-util" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="backend" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="120" y="260" width="120" height="60" as="geometry"/>
+                <mxCell id="e-c11" value="cria sessao de pagamento" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-stripe-util" target="c-stripe" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="5" value="GET HTTP" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="120" y="130" width="80" height="30" as="geometry"/>
+                <mxCell id="c-lbl5" value="PASSO 5 — Stripe redireciona o cliente de volta apos o pagamento" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#bdd7ee;strokeColor=#6c8ebf;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-c">
+                    <mxGeometry x="10" y="750" width="510" height="22" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="autentica&lt;div&gt;middlewares/adminAuth.js&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="35" y="160" width="170" height="70" as="geometry"/>
+                <mxCell id="c-return" value="&lt;b&gt;return.html&lt;/b&gt;&lt;br/&gt;return.js&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Pagina de retorno. Le o session_id&lt;br/&gt;da URL e confirma o pagamento.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="bg-c" vertex="1">
+                    <mxGeometry x="20" y="778" width="185" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="adminCreateProduct" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="340" y="410" width="120" height="60" as="geometry"/>
+                <mxCell id="c-r-session" value="&lt;b&gt;GET /session-status&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Pergunta ao Stripe se o pagamento foi&lt;br/&gt;concluido. Retorna status e e-mail.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-c" vertex="1">
+                    <mxGeometry x="275" y="780" width="215" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="10" target="9">
+                <mxCell id="c-stripe-ref" value="&lt;b&gt;Stripe&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Confirma: pagamento&lt;br/&gt;aprovado ou nao.&lt;br/&gt;Retorna o e-mail do cliente.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="bg-c">
+                    <mxGeometry x="555" y="778" width="185" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-c12" value="redirect apos pagamento (return.html?session_id=...)" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#b85450;fontSize=9;fontColor=#b85450;" parent="bg-c" source="c-stripe" target="c-return" edge="1">
+                    <mxGeometry x="0.0868" y="-28" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c13" value="verifica o status do pagamento" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-return" target="c-r-session" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-c14" value="Stripe confirma: pago ou nao" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-c" source="c-r-session" target="c-stripe-ref" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="bg-a" value="FLUXO DO ADMIN" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;align=left;spacingLeft=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="930" width="1200" height="1120" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-lbl1" value="PASSO 1 — Admin tenta acessar o painel (autenticacao obrigatoria)" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#ffd966;strokeColor=#d6b656;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-a">
+                    <mxGeometry x="10" y="40" width="500" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-browser" value="&lt;b&gt;Admin&lt;/b&gt;&lt;br/&gt;(Navegador)&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Painel de administracao,&lt;br/&gt;para cadastrar produtos.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="bg-a" vertex="1">
+                    <mxGeometry x="20" y="70" width="155" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-r-admin" value="&lt;b&gt;GET /admin&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Rota para acessar o painel.&lt;br/&gt;Passa obrigatoriamente pelo adminAuth.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="78" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-auth-get" value="&lt;b&gt;adminAuth&lt;/b&gt;&lt;br/&gt;(Basic Auth)&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Verifica usuario e senha no header.&lt;br/&gt;Sem credenciais corretas: bloqueia.&lt;br/&gt;middlewares/adminAuth.js&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="520" y="52" width="195" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-admin-html" value="&lt;b&gt;admin.html&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Pagina do painel com formulario&lt;br/&gt;para cadastrar produto:&lt;br/&gt;nome, preco, imagens, PDF.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" parent="bg-a" vertex="1">
+                    <mxGeometry x="800" y="65" width="195" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a1" value="tenta acessar o painel" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-browser" target="a-r-admin" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a2" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="bg-a" source="a-r-admin" target="a-auth-get" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="Criar produto" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="340" y="250" width="120" height="80" as="geometry"/>
+                <mxCell id="e-a3" value="200 OK — credenciais corretas" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;strokeColor=#82b366;" parent="bg-a" source="a-auth-get" target="a-admin-html" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="13" value="Valida entradas&lt;div&gt;/utils/productDataValidation.js&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="260" y="500" width="280" height="40" as="geometry"/>
+                <mxCell id="e-a4" value="401/403 — acesso negado" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#b85450;fontSize=9;fontColor=#b85450;" parent="bg-a" source="a-auth-get" target="a-browser" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-35" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="15" value="" style="swimlane;startSize=0;" vertex="1" parent="1">
-                    <mxGeometry x="30" y="600" width="810" height="280" as="geometry"/>
+                <mxCell id="a-lbl2" value="PASSO 2 — Agora na pagina admin, preenche o formulario e envia para criar o produto" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#ffd966;strokeColor=#d6b656;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-a">
+                    <mxGeometry x="10" y="222" width="680" height="22" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="operações na tabela &quot;products&quot;&lt;div&gt;/product.repo.js&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;horizontal=1;verticalAlign=top;" vertex="1" parent="15">
-                    <mxGeometry x="10" y="40" width="160" height="220" as="geometry"/>
+                <mxCell id="a-r-create" value="&lt;b&gt;POST /api/admin/products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Rota para criar produto.&lt;br/&gt;Recebe multipart/form-data:&lt;br/&gt;nome, categoria, descricao, preco,&lt;br/&gt;imagens[] e PDF.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="250" width="215" height="95" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" value="products" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="15">
-                    <mxGeometry x="25" y="110" width="130" height="130" as="geometry"/>
+                <mxCell id="a-auth-post" value="&lt;b&gt;adminAuth&lt;/b&gt;&lt;br/&gt;(Basic Auth)&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Verifica as credenciais novamente&lt;br/&gt;antes de processar o cadastro.&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="528" y="243" width="180" height="105" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="operações na tabela &quot;product_images&quot;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;/productImageTable.repo.js&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;horizontal=1;verticalAlign=top;" vertex="1" parent="15">
-                    <mxGeometry x="190" y="40" width="160" height="220" as="geometry"/>
+                <mxCell id="a-multer" value="&lt;b&gt;multer&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Intercepta os arquivos enviados (imagens e PDF)&lt;br/&gt;e os deixa disponiveis em memoria&lt;br/&gt;para o servidor processar.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="790" y="252" width="215" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="product_images" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="15">
-                    <mxGeometry x="205" y="110" width="130" height="130" as="geometry"/>
+                <mxCell id="e-a5" value="admin preenche e submete o formulario" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-admin-html" target="a-r-create" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="21" value="SUPABASE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="15">
-                    <mxGeometry width="90" height="30" as="geometry"/>
+                <mxCell id="e-a6" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="bg-a" source="a-r-create" target="a-auth-post" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="/repositories" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="20" y="570" width="90" height="30" as="geometry"/>
+                <mxCell id="e-a7" value="autenticado, prossegue" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;strokeColor=#82b366;" parent="bg-a" source="a-auth-post" target="a-multer" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-lbl3" value="PASSO 3 — Servico orquestra a criacao: valida os dados e executa as etapas em sequencia" style="text;html=1;fontStyle=1;fontSize=10;fillColor=#ffd966;strokeColor=#d6b656;rounded=1;align=left;spacingLeft=6;" vertex="1" parent="bg-a">
+                    <mxGeometry x="10" y="415" width="730" height="22" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-service" value="&lt;b&gt;adminCreateProduct.service.js&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Orquestra tudo: valida, salva no banco e faz uploads.&lt;br/&gt;Se qualquer etapa falhar, desfaz automaticamente.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="443" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a8" value="arquivos processados" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-multer" target="a-service" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-validation" value="&lt;b&gt;productDataValidation()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Valida: nome e categoria obrigatorios, preco valido&lt;br/&gt;(numero maior que zero), PDF e ao menos 1 imagem.&lt;br/&gt;Lanca erro imediatamente se algo estiver errado.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="535" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a9" value="1o: valida todos os dados do formulario" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-service" target="a-validation" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-repo-ins" value="&lt;b&gt;2. productRepo.insertProduct()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Cria o registro do produto no banco com os dados&lt;br/&gt;basicos. Retorna o ID gerado para as proximas etapas.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="645" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-supa-db-prod" value="Supabase DB&lt;br/&gt;&lt;b&gt;tabela: products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;nome, preco, categoria,&lt;br/&gt;caminho PDF, is_active&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="bg-a" vertex="1">
+                    <mxGeometry x="640" y="635" width="160" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a10" value="dados OK, cria o produto" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-validation" target="a-repo-ins" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a15" value="INSERT produto" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-ins" target="a-supa-db-prod" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-repo-pdf" value="&lt;b&gt;3. productFileStorageRepo.uploadPdf()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Faz upload do PDF (manual, ficha tecnica etc.)&lt;br/&gt;para o storage do Supabase.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="740" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-supa-stor-files" value="Supabase Storage&lt;br/&gt;&lt;b&gt;bucket: product-files&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Armazena os PDFs&lt;br/&gt;dos produtos.&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="bg-a" vertex="1">
+                    <mxGeometry x="640" y="733" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a11" value="produto criado, agora faz upload do PDF" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-ins" target="a-repo-pdf" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a16" value="upload PDF" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-pdf" target="a-supa-stor-files" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-repo-upd" value="&lt;b&gt;4. productRepo.updateFilePath()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Atualiza o registro do produto no banco&lt;br/&gt;com o caminho do PDF que foi feito upload.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="835" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-supa-db-prod2" value="Supabase DB&lt;br/&gt;&lt;b&gt;tabela: products&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Atualiza file_path&lt;br/&gt;no registro do produto.&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="bg-a">
+                    <mxGeometry x="640" y="828" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a12" value="PDF enviado, salva o caminho no banco" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-pdf" target="a-repo-upd" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a17" value="UPDATE file_path" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-upd" target="a-supa-db-prod2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-repo-imgs" value="&lt;b&gt;5. productImageStorageRepo.uploadImages()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Faz upload de todas as imagens do produto&lt;br/&gt;para o storage. Retorna os caminhos de cada uma.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="930" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-supa-stor-imgs" value="Supabase Storage&lt;br/&gt;&lt;b&gt;bucket: product-images&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Armazena as imagens&lt;br/&gt;dos produtos.&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="bg-a" vertex="1">
+                    <mxGeometry x="640" y="923" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a13" value="caminho salvo, agora envia as imagens" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-upd" target="a-repo-imgs" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a18" value="upload imagens" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-imgs" target="a-supa-stor-imgs" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-repo-img-tbl" value="&lt;b&gt;6. productImageRepo.insertManyImages()&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Salva os caminhos das imagens na tabela.&lt;br/&gt;A primeira imagem e marcada como capa (is_cover).&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d6b656;" parent="bg-a" vertex="1">
+                    <mxGeometry x="245" y="1025" width="280" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="a-supa-db-imgs" value="Supabase DB&lt;br/&gt;&lt;b&gt;tabela: product_images&lt;/b&gt;&lt;br/&gt;&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;Caminhos das imagens,&lt;br/&gt;qual e a capa, ordem.&lt;/font&gt;" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="bg-a" vertex="1">
+                    <mxGeometry x="640" y="1018" width="160" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-a14" value="imagens enviadas, registra os caminhos" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-imgs" target="a-repo-img-tbl" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-90" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-a19" value="INSERT caminhos das imagens" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;fontColor=#555;" parent="bg-a" source="a-repo-img-tbl" target="a-supa-db-imgs" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a-rollback" value="Rollback automatico em caso de falha:&lt;br/&gt;- Imagens do storage sao removidas&lt;br/&gt;- PDF do storage e removido&lt;br/&gt;- Produto e deletado do banco&lt;br/&gt;Nenhum dado fica &#39;pela metade&#39;." style="text;html=1;align=left;fillColor=#f8cecc;strokeColor=#b85450;rounded=1;spacingLeft=8;fontSize=10;" parent="bg-a" vertex="1">
+                    <mxGeometry x="870" y="640" width="250" height="105" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

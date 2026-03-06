@@ -32,12 +32,13 @@ export function adminRoutes({ adminCreateProductService}) {
                     pdf
                 })
 
-                return res.status((201).json(result))
+                return res.status(201).json(result)
             } catch (e) {
                 const status = e.status || 500
 
                 const msg =
                     e.message === "NAME_REQUIRED" ? "Nome é obrigatório" :
+                    e.message === "CATEGORY_REQUIRED" ? "Categoria é obrigatória" :
                     e.message === "PRICE_INVALID" ? "Preço inválido" :
                     e.message === "PDF_REQUIRED" ? "PDF é obrigatório" :
                     e.message === "IMAGES_REQUIRED" ? "Envie ao menos 1 imagem" :

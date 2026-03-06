@@ -75,6 +75,10 @@ export function removeFromCart(productId){
 }
 
 
+export function clearCart() {
+    localStorage.removeItem(KEY)
+}
+
 export function cartCountItems() {
 
     const cart = getCart()

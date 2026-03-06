@@ -1,9 +1,26 @@
-import { getCart, removeFromCart } from "../../store/cartStore.js";
+import { getCart, removeFromCart, clearCart } from "../../store/cartStore.js";
 import { conversionFromCentsToMoney } from "../../utils/utils.js";
 
 const cartElement = document.getElementById("cart");
 const totalElement = document.getElementById("total");
 const checkoutBtn = document.getElementById("checkout");
+
+function buildClearCartBtn() {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = "Limpar carrinho";
+  btn.onclick = async () => {
+    clearCart();
+    await renderCart();
+  };
+
+  const row = document.createElement("div");
+  row.style.padding = 2;
+  row.style.display = "flex";
+  row.style.justifyContent = "flex-end";
+  row.appendChild(btn);
+  return row;
+}
 
 async function renderCart() {
   const cart = getCart();
@@ -30,8 +47,9 @@ async function renderCart() {
   const data = json.activeProducts;
 
   if (itemsIDs.length !== data.length) {
-    cartElement.textContent = "Erro ao carregar carrinho...";
+    cartElement.textContent = "Erro ao carregar carrinho. Tente limpar o carrinho e adicionar os itens novamente.";
     totalElement.textContent = conversionFromCentsToMoney(0);
+    cartElement.appendChild(buildClearCartBtn());
     return;
   }
 
@@ -65,7 +83,7 @@ async function renderCart() {
 
     removeBtn.onclick = async () => {
       removeFromCart(item.productId);
-      await renderCart(); // re-renderiza sem dar refresh na página
+      await renderCart();
     };
 
     row.appendChild(info);
@@ -73,6 +91,8 @@ async function renderCart() {
 
     cartElement.appendChild(row);
   }
+
+  cartElement.appendChild(buildClearCartBtn());
 
   totalElement.textContent = conversionFromCentsToMoney(total);
 }

@@ -8,6 +8,7 @@ export function adminRoutes({ adminCreateProductService}) {
     const router = express.Router();
 
 
+    // POST 
     router.post(
         "/products",
         adminAuth,
@@ -21,7 +22,7 @@ export function adminRoutes({ adminCreateProductService}) {
                 // 
                 const {name, category, description, price, currency} = req.body
                 const images = req.files?.images || [];
-                const pdf = req.files?.file?.[0];
+                const pdf = req.files?.file?.[0];       
                 const result = await adminCreateProductService.create({
                     name,
                     category,

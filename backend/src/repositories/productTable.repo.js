@@ -45,12 +45,34 @@ export function productRepo(supabase){
             if(error) throw Object.assign(new Error("DB_PRODUCT_DELETE_ERROR"), {status:500, cause:error})
         },
 
+        // GET ALL (com categoria e imagens)
         async getProducts(){
-            const {data, error} = await supabase.from("products").select("id,name,description,price_cents,is_active").eq("is_active", true).order("name", {ascending: true})
-            
+            const {data, error} = await supabase
+                .from("products")
+                .select("id, name, description, price_cents, currency, category, is_active, product_images(path, is_cover, sort_order)")
+                .eq("is_active", true)
+                .order("name", {ascending: true})
+
             if(error) throw Object.assign(new Error("DB_PRODUCT_GET_ERROR"), {status: 500, cause: error})
 
             return data ?? []
+        },
+
+        // GET BY ID (produto individual com imagens)
+        async getProductById(id){
+            const {data, error} = await supabase
+                .from("products")
+                .select("id, name, description, price_cents, currency, category, is_active, product_images(path, is_cover, sort_order)")
+                .eq("id", id)
+                .eq("is_active", true)
+                .single()
+
+            if (error) {
+                if (error.code === "PGRST116") return null
+                throw Object.assign(new Error("DB_PRODUCT_GET_BY_ID_ERROR"), {status: 500, cause: error})
+            }
+
+            return data
         },
 
         // GET - WHERE IS_ACTIVE = 1

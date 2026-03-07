@@ -95,13 +95,43 @@ app.post("/api/cart/products", async(req, res) => {
 })
 
 
-// Get - Consultar itens do supabase
+// Helper: converte product_images[] em URLs publicas do Supabase Storage
+const IMG_BASE = `${process.env.SUPABASE_URL}/storage/v1/object/public/product-images`;
+
+function mapProductImages(products) {
+  return products.map(p => {
+    const images = (p.product_images ?? [])
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map(img => ({ ...img, url: `${IMG_BASE}/${img.path}` }));
+    const { product_images, ...rest } = p;
+    return { ...rest, images };
+  });
+}
+
+// Get - Consultar produtos (suporta ?cat= para filtro por categoria)
 app.get("/api/products", async (req, res)=> {
-  const produtos = await productsDb.getProducts()
+  let produtos = await productsDb.getProducts()
+  const { cat } = req.query
+  if (cat) {
+    produtos = produtos.filter(p => p.category === cat)
+  }
   return res.send({
     status: 200,
-    produtos
+    produtos: mapProductImages(produtos)
   })
+})
+
+// Get - Produto individual por ID
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    const produto = await productsDb.getProductById(req.params.id)
+    if (!produto) return res.status(404).json({ error: "Produto nao encontrado" })
+    const [mapped] = mapProductImages([produto])
+    return res.json({ produto: mapped })
+  } catch (err) {
+    console.error("GET /api/products/:id error:", err)
+    return res.status(500).json({ error: err.message })
+  }
 })
 
 

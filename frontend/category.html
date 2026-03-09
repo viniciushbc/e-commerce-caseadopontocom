@@ -13,17 +13,20 @@
     <!-- Banner preenchido pelo JS -->
     <div id="cat-banner"></div>
 
-    <!-- Divisor -->
-    <div class="stitch-divider mx-8 my-4"></div>
-
     <!-- Grid de produtos -->
-    <section class="py-10" aria-label="Produtos da categoria">
+    <section class="py-10 products-section relative" aria-label="Produtos da categoria">
       <div class="max-w-6xl mx-auto px-4 pb-8">
         <div id="status" class="flex flex-col items-center gap-3 py-20 text-base-content/50">
           <span class="loading loading-spinner loading-lg text-primary"></span>
           <p>Carregando produtos...</p>
         </div>
         <div id="grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
+      </div>
+
+      <!-- Decoração inferior -->
+      <div class="flex justify-center mt-4 opacity-20" aria-hidden="true">
+        <img src="/images/details/linha_coracao.png" alt=""
+             class="w-32 h-auto object-contain" />
       </div>
     </section>
   </main>

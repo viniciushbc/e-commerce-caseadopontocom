@@ -1,7 +1,7 @@
 import { renderHeader, renderFooter, refreshCartBadge } from "../../components/layout.js";
 import { addToCart, getCart } from "../../store/cartStore.js";
 import { conversionFromCentsToMoney } from "../../utils/utils.js";
-import { getCategoryLabel, CATEGORY_DESCRIPTIONS } from "../../utils/categories.js";
+import { getCategoryLabel, CATEGORY_DESCRIPTIONS, getCategoryIcon, getButtonIcon } from "../../utils/categories.js";
 import { iconEye, iconCartPlus, iconCheck } from "../../utils/icons.js";
 
 renderHeader(document.getElementById("header-root"));
@@ -14,27 +14,55 @@ const catDesc  = CATEGORY_DESCRIPTIONS[cat] ?? "Produtos de " + catLabel;
 
 document.title = `${catLabel} — Caseado.com`;
 
-/* Banner da categoria */
+/* Banner da categoria — mesmo estilo artesanal da homepage */
 document.getElementById("cat-banner").innerHTML = `
-  <section class="bg-base-200 diagonal-stripe border-b border-base-300 py-12 px-4 text-center relative overflow-hidden">
-    <div class="pointer-events-none select-none absolute inset-0 opacity-[0.04] flex items-center justify-end pr-16" aria-hidden="true">
-      <svg width="200" height="200" viewBox="0 0 32 32" fill="currentColor" class="text-primary -rotate-12">
-        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="16" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 2"/>
-        <circle cx="11" cy="11" r="2.5"/><circle cx="21" cy="11" r="2.5"/>
-        <circle cx="11" cy="21" r="2.5"/><circle cx="21" cy="21" r="2.5"/>
-      </svg>
+  <section class="cat-rose-section py-8 px-4 relative overflow-hidden">
+
+    <!-- Ícones decorativos de categoria nas laterais -->
+    <div class="pointer-events-none select-none absolute left-4 top-1/2 -translate-y-1/2 hidden lg:block" aria-hidden="true">
+      <img src="${getCategoryIcon(cat)}" alt=""
+           class="h-36 w-auto object-contain opacity-20 -rotate-12 drop-shadow-md" />
     </div>
-    <nav class="breadcrumbs text-sm justify-center mb-3" aria-label="Caminho">
-      <ul class="flex gap-1 justify-center text-base-content/50">
-        <li><a href="/" class="hover:text-primary transition-colors font-semibold">Inicio</a></li>
-        <li class="text-base-content/30">›</li>
-        <li class="text-primary font-bold">${catLabel}</li>
-      </ul>
-    </nav>
-    <h1 class="text-4xl font-heading text-base-content mb-2">${catLabel}</h1>
-    <p class="text-base-content/55">${catDesc}</p>
+    <div class="pointer-events-none select-none absolute right-4 top-1/2 -translate-y-1/2 hidden lg:block" aria-hidden="true">
+      <img src="${getCategoryIcon(cat)}" alt=""
+           class="h-36 w-auto object-contain opacity-20 rotate-12 drop-shadow-md" /></div>
+
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-3" aria-label="Caminho">
+        <ul class="flex gap-1 justify-center text-xs text-base-content/40 font-semibold uppercase tracking-wider">
+          <li><a href="/" class="hover:text-primary transition-colors">Início</a></li>
+          <li class="text-base-content/25">›</li>
+          <li class="text-secondary">${catLabel}</li>
+        </ul>
+      </nav>
+
+      <!-- Ícone da categoria -->
+      <img src="${getCategoryIcon(cat)}" alt="${catLabel}"
+           class="w-14 h-14 object-contain mx-auto mb-3" />
+
+      <!-- Título -->
+      <h1 class="text-4xl font-heading text-base-content mb-1">${catLabel}</h1>
+      <p class="text-base-content/55 text-sm">${catDesc}</p>
+
+      <!-- Ornamento -->
+      <div class="flex items-center justify-center gap-3 mt-4">
+        <div class="h-px w-10 bg-secondary/40"></div>
+        <img src="${getButtonIcon()}" alt="" aria-hidden="true" class="w-5 h-5 object-contain opacity-50" />
+        <div class="h-px w-10 bg-secondary/40"></div>
+      </div>
+    </div>
   </section>
+
+  <!-- Scallop: banner → produtos -->
+  <div class="pointer-events-none" aria-hidden="true" style="margin-bottom:-1px;">
+    <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+         style="width:100%; height:56px; display:block;">
+      <path d="M0,56 L0,34 C80,34 80,0 160,0 C240,0 240,34 320,34 C400,34 400,0 480,0 C560,0 560,34 640,34 C720,34 720,0 800,0 C880,0 880,34 960,34 C1040,34 1040,0 1120,0 C1200,0 1200,34 1280,34 C1360,34 1360,0 1440,0 L1440,56 Z"
+            fill="#DDF4F6"/>
+    </svg>
+  </div>
 `;
 
 const grid   = document.getElementById("grid");

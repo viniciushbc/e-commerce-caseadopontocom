@@ -7,15 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["'Playfair Display'", "Georgia", "serif"],
-        sans:    ["'Nunito'", "'Helvetica Neue'", "Arial", "sans-serif"],
-      },
-      backgroundImage: {
-        /* Padrao xadrez para o header */
-        "plaid": `
-          repeating-linear-gradient(90deg, rgba(13,148,136,0.10) 0 1px, transparent 1px 32px),
-          repeating-linear-gradient(0deg,  rgba(13,148,136,0.10) 0 1px, transparent 1px 32px)
-        `,
+        heading:  ["'Playfair Display'", "Georgia", "serif"],
+        display:  ["'Amatic SC'", "cursive"],
+        sans:     ["'Nunito'", "'Helvetica Neue'", "Arial", "sans-serif"],
       },
     },
   },
@@ -25,31 +19,31 @@ export default {
     themes: [
       {
         caseado: {
-          /* Verde-agua (teal) como cor primaria */
-          "primary":          "#0d9488",
-          "primary-focus":    "#0f766e",
+          /* Turquesa principal (botões, links, destaques) */
+          "primary":          "#2C8C91",
+          "primary-focus":    "#1d6b6f",
           "primary-content":  "#ffffff",
 
-          /* Rosa como cor secundaria */
-          "secondary":        "#f43f5e",
-          "secondary-focus":  "#e11d48",
+          /* Rosa artesanal (badges, accents, hovers) */
+          "secondary":        "#C96B9A",
+          "secondary-focus":  "#b35587",
           "secondary-content":"#ffffff",
 
-          /* Accent: teal claro */
-          "accent":           "#5eead4",
-          "accent-focus":     "#2dd4bf",
-          "accent-content":   "#0f2f2e",
+          /* Turquesa vivo (accent / header bg) */
+          "accent":           "#48C7C7",
+          "accent-focus":     "#33b3b3",
+          "accent-content":   "#1a4a4d",
 
-          /* Neutro: verde-escuro quase preto */
-          "neutral":          "#1c3132",
-          "neutral-focus":    "#0d1f1f",
-          "neutral-content":  "#f0fdfa",
+          /* Neutro escuro (footer) */
+          "neutral":          "#1a4a4d",
+          "neutral-focus":    "#0f2f31",
+          "neutral-content":  "#DDF4F6",
 
-          /* Fundo: branco puro e variantes teal suaves */
+          /* Base */
           "base-100":         "#ffffff",
-          "base-200":         "#f0fdfa",
-          "base-300":         "#ccfbf1",
-          "base-content":     "#1c3132",
+          "base-200":         "#DDF4F6",
+          "base-300":         "#CFE7D8",
+          "base-content":     "#1a4a4d",
 
           "info":    "#0ea5e9",
           "success": "#22c55e",

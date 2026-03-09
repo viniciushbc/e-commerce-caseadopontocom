@@ -1,5 +1,5 @@
 /* Google Fonts - carregadas antes do Tailwind */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Nunito:wght@400;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,7 +13,7 @@
 
   body {
     font-family: 'Nunito', sans-serif;
-    background-color: #f0fdfa;
+    background-color: #DDF4F6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -30,22 +30,25 @@
    ================================================ */
 @layer components {
 
-  /* --- Faixa de identidade da marca (rosa) acima do header --- */
-  .brand-stripe {
-    height: 4px;
-    background: linear-gradient(90deg, #0d9488 0%, #f43f5e 50%, #0d9488 100%);
-    position: sticky;
-    top: 0;
-    z-index: 51;
-  }
+  /* --- Faixa de identidade integrada ao topo do header (via ::before) --- */
+  .brand-stripe { display: none; }
 
-  /* --- Header com padrao xadrez teal --- */
+  /* --- Header turquesa com poás brancos --- */
   .header-craft {
-    background-color: #e0fdf4;
-    background-image:
-      repeating-linear-gradient(90deg, rgba(13,148,136,0.13) 0 1px, transparent 1px 32px),
-      repeating-linear-gradient(0deg,  rgba(13,148,136,0.13) 0 1px, transparent 1px 32px);
-    box-shadow: 0 6px 32px rgba(13,148,136,0.10);
+    background-color: #48C7C7;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.22) 2.5px, transparent 2.5px);
+    background-size: 22px 22px;
+    box-shadow: 0 4px 24px rgba(44,140,145,0.28);
+  }
+  .header-craft::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2C8C91 0%, #EFA8C2 45%, #C98ACD 55%, #2C8C91 100%);
+    z-index: 1;
+    pointer-events: none;
   }
 
   /* --- Divisor de linha de costura (pontilhado) --- */
@@ -78,26 +81,45 @@
     flex-shrink: 0;
   }
 
-  /* --- Hero com gradiente rosa + teal --- */
-  .hero-rose-bg {
-    background: linear-gradient(135deg,
-      #f0fdfa 0%,
-      #fce7f3 35%,
-      #fff1f2 55%,
-      #f0fdfa 100%
-    );
+  /* --- Hero: vitrine de marca — branco com poás rosê suaves --- */
+  .hero-brand-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(circle, rgba(239,168,194,0.18) 2.5px, transparent 2.5px),
+      linear-gradient(180deg, #ffffff 0%, #FEF0F6 100%);
+    background-size: 26px 26px, 100% 100%;
   }
 
-  /* --- Secao de categorias com fundo rosado suave --- */
+  /* --- Secao de categorias — rosa artesanal --- */
   .cat-rose-section {
-    background: linear-gradient(180deg, #fff1f2 0%, #fce7f3 50%, #fff1f2 100%);
-    border-top: 1px solid rgba(244,63,94,0.15);
-    border-bottom: 1px solid rgba(244,63,94,0.15);
+    background: linear-gradient(180deg, #F7D8E4 0%, #fce7f3 50%, #F7D8E4 100%);
+    border-top: 2px solid rgba(201,107,154,0.12);
+    border-bottom: 2px solid rgba(201,107,154,0.12);
   }
 
-  /* --- Card de categoria --- */
+  /* --- Card de categoria — botão limpo sem box --- */
   .cat-card {
-    @apply flex flex-col items-center gap-2 px-6 py-4 bg-white border-2 border-rose-100 rounded-2xl hover:border-secondary hover:bg-secondary/5 hover:-translate-y-1 transition-all duration-200 min-w-[100px] cursor-pointer shadow-sm hover:shadow-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 80px;
+    text-decoration: none;
+  }
+  .cat-card:hover {
+    background: rgba(72,199,199,0.13);
+    transform: translateY(-3px);
+  }
+  .cat-card:hover span {
+    color: #2C8C91;
   }
 
   /* --- Fundo listras diagonais (hero, banners) --- */
@@ -136,7 +158,7 @@
     content: '';
     display: block;
     width: 100%;
-    border-top: 2px dashed rgba(13,148,136,0.22);
+    border-top: 2px dashed rgba(44,140,145,0.28);
   }
 
   /* --- Botoes de seta do carrossel nos cards --- */
@@ -212,6 +234,106 @@
 }
 
 /* ================================================
+   TRANSIÇÃO HEADER → CATEGORIAS
+   ================================================ */
+.cat-nav-bridge {
+  background: linear-gradient(180deg, rgba(72,199,199,0.12) 0%, #DDF4F6 100%);
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cat-nav-bridge-line {
+  flex: 1;
+  border-top: 1.5px dashed rgba(44,140,145,0.22);
+}
+.cat-nav-bridge-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.cat-nav-bridge-tag span {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgba(44,140,145,0.60);
+  letter-spacing: 0.08em;
+}
+
+/* ================================================
+   PRODUTOS: FUNDO COM PADRÃO SUTIL
+   ================================================ */
+.products-section {
+  background-image:
+    radial-gradient(circle, rgba(44,140,145,0.09) 1.5px, transparent 1.5px),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(44,140,145,0.025) 0px,
+      rgba(44,140,145,0.025) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+  background-size: 28px 28px, auto;
+}
+
+/* ================================================
+   CARRINHO FLUTUANTE
+   ================================================ */
+.cart-float {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+.cart-float.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.cart-float-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #2C8C91;
+  color: white;
+  box-shadow: 0 4px 20px rgba(44,140,145,0.45), 0 1px 4px rgba(0,0,0,0.1);
+  position: relative;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.cart-float-btn:hover {
+  background: #1d6b6f;
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(44,140,145,0.55);
+}
+.cart-float-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: #C96B9A;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid white;
+  line-height: 1;
+}
+
+/* ================================================
    NAVBAR / DROPDOWN OVERRIDES (DaisyUI)
    ================================================ */
 
@@ -280,7 +402,22 @@
 /* ================================================
    FOOTER DECORATIVO
    ================================================ */
-footer .footer-brand {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.5rem;
+.footer-craft {
+  background:
+    radial-gradient(circle, rgba(201,107,154,0.10) 1.5px, transparent 1.5px),
+    repeating-linear-gradient(
+      45deg,
+      rgba(44,140,145,0.03) 0px,
+      rgba(44,140,145,0.03) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    linear-gradient(180deg, #FEF0F6 0%, #EBF9F9 100%);
+  background-size: 22px 22px, auto, 100% 100%;
+  border-top: 2px solid rgba(201,107,154,0.12);
+  position: relative;
+}
+.footer-scallop-top {
+  margin-top: -32px;
+  line-height: 0;
 }

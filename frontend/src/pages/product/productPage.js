@@ -83,7 +83,7 @@ root.innerHTML = `
       <!-- INFO DO PRODUTO -->
       <div class="space-y-5">
         <div>
-          <span class="badge badge-primary badge-outline font-bold uppercase tracking-widest text-xs mb-3">${catLabel}</span>
+          <span class="badge badge-secondary badge-outline font-bold uppercase tracking-widest text-xs mb-3">${catLabel}</span>
           <h1 class="text-3xl font-heading text-base-content leading-snug">${product.name}</h1>
         </div>
 

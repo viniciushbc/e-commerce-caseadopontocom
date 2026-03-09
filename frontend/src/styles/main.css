@@ -13,6 +13,7 @@
 
   body {
     font-family: 'Nunito', sans-serif;
+    background-color: #f0fdfa;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -29,12 +30,22 @@
    ================================================ */
 @layer components {
 
+  /* --- Faixa de identidade da marca (rosa) acima do header --- */
+  .brand-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488 0%, #f43f5e 50%, #0d9488 100%);
+    position: sticky;
+    top: 0;
+    z-index: 51;
+  }
+
   /* --- Header com padrao xadrez teal --- */
   .header-craft {
-    background-color: #f0fdfa;
+    background-color: #e0fdf4;
     background-image:
-      repeating-linear-gradient(90deg, rgba(13,148,136,0.10) 0 1px, transparent 1px 32px),
-      repeating-linear-gradient(0deg,  rgba(13,148,136,0.10) 0 1px, transparent 1px 32px);
+      repeating-linear-gradient(90deg, rgba(13,148,136,0.13) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(0deg,  rgba(13,148,136,0.13) 0 1px, transparent 1px 32px);
+    box-shadow: 0 6px 32px rgba(13,148,136,0.10);
   }
 
   /* --- Divisor de linha de costura (pontilhado) --- */
@@ -67,12 +78,34 @@
     flex-shrink: 0;
   }
 
+  /* --- Hero com gradiente rosa + teal --- */
+  .hero-rose-bg {
+    background: linear-gradient(135deg,
+      #f0fdfa 0%,
+      #fce7f3 35%,
+      #fff1f2 55%,
+      #f0fdfa 100%
+    );
+  }
+
+  /* --- Secao de categorias com fundo rosado suave --- */
+  .cat-rose-section {
+    background: linear-gradient(180deg, #fff1f2 0%, #fce7f3 50%, #fff1f2 100%);
+    border-top: 1px solid rgba(244,63,94,0.15);
+    border-bottom: 1px solid rgba(244,63,94,0.15);
+  }
+
+  /* --- Card de categoria --- */
+  .cat-card {
+    @apply flex flex-col items-center gap-2 px-6 py-4 bg-white border-2 border-rose-100 rounded-2xl hover:border-secondary hover:bg-secondary/5 hover:-translate-y-1 transition-all duration-200 min-w-[100px] cursor-pointer shadow-sm hover:shadow-md;
+  }
+
   /* --- Fundo listras diagonais (hero, banners) --- */
   .diagonal-stripe {
     background-image: repeating-linear-gradient(
       -45deg,
-      rgba(13,148,136,0.04),
-      rgba(13,148,136,0.04) 4px,
+      rgba(244,63,94,0.03),
+      rgba(244,63,94,0.03) 4px,
       transparent 4px,
       transparent 16px
     );
@@ -80,16 +113,55 @@
 
   /* --- Borda decorativa pontilhada para secoes --- */
   .section-stitch {
-    border-top: 2px dashed rgba(13,148,136,0.2);
-    border-bottom: 2px dashed rgba(13,148,136,0.2);
+    border-top: 2px dashed rgba(244,63,94,0.2);
+    border-bottom: 2px dashed rgba(244,63,94,0.2);
   }
 
   /* --- Linha de divider com pontos (like fabric pattern) --- */
   .dot-divider {
     height: 12px;
-    background-image: radial-gradient(circle, rgba(13,148,136,0.4) 2px, transparent 2px);
+    background-image: radial-gradient(circle, rgba(244,63,94,0.35) 2px, transparent 2px);
     background-size: 16px 12px;
   }
+
+  /* --- Divisor entre categorias e produtos (CSS puro, sem imagem) --- */
+  .stitch-divider-strip {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+  }
+  .stitch-divider-strip::before {
+    content: '';
+    display: block;
+    width: 100%;
+    border-top: 2px dashed rgba(13,148,136,0.22);
+  }
+
+  /* --- Botoes de seta do carrossel nos cards --- */
+  .card-arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .card-arrow-btn.left { left: 6px; }
+  .card-arrow-btn.right { right: 6px; }
+  .card-arrow-btn:hover { background: rgba(255, 255, 255, 1); }
+  .card-img-wrap:hover .card-arrow-btn { opacity: 1; }
 
   /* --- Carrossel do produto --- */
   .carousel-main-img {
@@ -178,8 +250,23 @@
 }
 
 .carousel-arrow-btn {
-  @apply btn btn-circle btn-sm btn-ghost bg-base-100 border border-base-300 shadow absolute top-1/2 -translate-y-1/2 z-10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid hsl(var(--b3));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
 }
+.carousel-arrow-btn:hover { background: #ffffff; }
 .carousel-arrow-btn.prev { left: 10px; }
 .carousel-arrow-btn.next { right: 10px; }
 

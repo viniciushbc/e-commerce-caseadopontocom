@@ -42,7 +42,7 @@ root.innerHTML = `
       <ul class="flex gap-1">
         <li><a href="/" class="hover:text-primary font-semibold transition-colors">${iconArrowLeft(14)} Loja</a></li>
         <li class="text-base-content/30">›</li>
-        <li class="text-base-content/70">${catLabel}</li>
+        <li><a href="/category.html?cat=${product.category}" class="hover:text-primary transition-colors">${catLabel}</a></li>
         <li class="text-base-content/30">›</li>
         <li class="text-base-content font-semibold truncate max-w-[200px]">${product.name}</li>
       </ul>

@@ -11,110 +11,123 @@
 
   <div id="header-root"></div>
 
+  <!-- Etiqueta de navegação: header → categorias -->
+  <div class="cat-nav-bridge" aria-hidden="true">
+    <div class="cat-nav-bridge-line"></div>
+    <div class="cat-nav-bridge-tag">
+      <img data-botao-icon src="/images/icons/botao_06.png" alt=""
+           class="w-4 h-4 object-contain opacity-55 flex-shrink-0" />
+      <span>Navegue por Categoria</span>
+      <img data-botao-icon src="/images/icons/botao_06.png" alt=""
+           class="w-4 h-4 object-contain opacity-55 flex-shrink-0" />
+    </div>
+    <div class="cat-nav-bridge-line"></div>
+  </div>
+
   <main>
 
-    <!-- ====== HERO ====== -->
-    <section class="hero min-h-[540px] relative overflow-hidden hero-rose-bg">
-
-      <!-- Decorações grandes: imagens artesanais desbotadas nas laterais (rodizio) -->
-      <div class="pointer-events-none select-none absolute inset-0 flex items-center justify-between" aria-hidden="true">
-        <img data-bigger-detail="left" src="/images/bigger_details/alfineteiro_linhas_botoes_trim.png"
-             alt="" class="h-72 w-auto object-contain opacity-15 -ml-8 -rotate-6 drop-shadow-lg" />
-        <img data-bigger-detail="right" src="/images/bigger_details/maquina_costura_trim.png"
-             alt="" class="h-64 w-auto object-contain opacity-15 -mr-8 rotate-6 drop-shadow-lg" />
-      </div>
-
-      <!-- Decoração extra no canto (rodizio) -->
-      <img data-bigger-detail="bottom" src="/images/bigger_details/coracao_agulha_trim.png"
-           alt="" aria-hidden="true"
-           class="pointer-events-none select-none absolute bottom-4 left-1/2 -translate-x-1/2 h-16 w-auto object-contain opacity-10" />
-
-      <div class="hero-content text-center relative z-10 py-20 max-w-2xl mx-auto flex-col">
-        <div class="badge badge-secondary badge-outline font-bold uppercase tracking-widest text-xs mb-5 px-4 py-3">
-          Artesanato Feito com Carinho
-        </div>
-        <h1 class="text-5xl md:text-6xl font-heading text-base-content mb-5 leading-tight">
-          Bonecas e Projetos<br/>
-          <span class="text-primary">que Encantam</span>
-        </h1>
-        <p class="text-base-content/60 text-lg mb-8 max-w-md">
-          Projetos digitais exclusivos, kits completos e muito mais para você criar peças únicas e apaixonantes.
-        </p>
-        <a href="#produtos" class="btn btn-primary btn-lg rounded-full px-10 shadow-lg shadow-primary/30">
-          Ver Produtos
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" transform="rotate(180 12 12)"/></svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- ====== STRIP DE CATEGORIAS ====== -->
-    <section class="py-10 cat-rose-section" aria-label="Categorias">
+    <!-- ====== FAIXA DE CATEGORIAS (compacta) ====== -->
+    <section class="py-5 cat-rose-section" aria-label="Categorias">
       <div class="max-w-5xl mx-auto px-4">
+        <div class="flex flex-wrap gap-3 justify-center">
 
-        <!-- Titulo da secao de categorias -->
-        <div class="text-center mb-6">
-          <p class="text-sm font-extrabold uppercase tracking-widest text-secondary/70">Navegue por categoria</p>
-        </div>
-
-        <div class="flex flex-wrap gap-4 justify-center">
-
-          <a href="/category.html?cat=natal" class="cat-card group">
-            <img data-cat-icon="natal" src="/images/category_icons/Natal/arvore_de_natal.png" alt="Natal"
-                 class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-200" />
-            <span class="font-bold text-sm text-base-content/70 group-hover:text-secondary transition-colors">Natal</span>
+          <a href="/category.html?cat=natal" class="cat-card">
+            <img data-botao-icon src="/images/icons/botao_01.png" alt="Natal"
+                 class="w-10 h-10 object-contain transition-transform duration-200" />
+            <span class="font-bold text-xs text-base-content/70 transition-colors">Natal</span>
           </a>
 
-          <a href="/category.html?cat=pascoa" class="cat-card group">
-            <img data-cat-icon="pascoa" src="/images/category_icons/Pascoa/coelho_cenoura.png" alt="Páscoa"
-                 class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-200" />
-            <span class="font-bold text-sm text-base-content/70 group-hover:text-secondary transition-colors">Páscoa</span>
+          <a href="/category.html?cat=pascoa" class="cat-card">
+            <img data-botao-icon src="/images/icons/botao_02.png" alt="Páscoa"
+                 class="w-10 h-10 object-contain transition-transform duration-200" />
+            <span class="font-bold text-xs text-base-content/70 transition-colors">Páscoa</span>
           </a>
 
-          <a href="/category.html?cat=boneca" class="cat-card group">
-            <img data-cat-icon="boneca" src="/images/category_icons/Boneca/boneca_princesa_varinha.png" alt="Boneca"
-                 class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-200" />
-            <span class="font-bold text-sm text-base-content/70 group-hover:text-secondary transition-colors">Boneca</span>
+          <a href="/category.html?cat=boneca" class="cat-card">
+            <img data-botao-icon src="/images/icons/botao_03.png" alt="Boneca"
+                 class="w-10 h-10 object-contain transition-transform duration-200" />
+            <span class="font-bold text-xs text-base-content/70 transition-colors">Boneca</span>
           </a>
 
-          <a href="/category.html?cat=kits" class="cat-card group">
-            <img data-cat-icon="kits" src="/images/category_icons/Kits/kit_ursinho_projeto.png" alt="Kits"
-                 class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-200" />
-            <span class="font-bold text-sm text-base-content/70 group-hover:text-secondary transition-colors">Kits</span>
+          <a href="/category.html?cat=kits" class="cat-card">
+            <img data-botao-icon src="/images/icons/botao_04.png" alt="Kits"
+                 class="w-10 h-10 object-contain transition-transform duration-200" />
+            <span class="font-bold text-xs text-base-content/70 transition-colors">Kits</span>
           </a>
 
-          <a href="/category.html?cat=diversos" class="cat-card group">
-            <img data-cat-icon="diversos" src="/images/category_icons/Diversos/diversos_cesta_costura.png" alt="Diversos"
-                 class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-200" />
-            <span class="font-bold text-sm text-base-content/70 group-hover:text-secondary transition-colors">Diversos</span>
+          <a href="/category.html?cat=diversos" class="cat-card">
+            <img data-botao-icon src="/images/icons/botao_05.png" alt="Diversos"
+                 class="w-10 h-10 object-contain transition-transform duration-200" />
+            <span class="font-bold text-xs text-base-content/70 transition-colors">Diversos</span>
           </a>
 
         </div>
       </div>
     </section>
 
-    <!-- ====== DIVISOR ENTRE CATEGORIAS E PRODUTOS ====== -->
-    <div class="stitch-divider-strip" aria-hidden="true"></div>
+    <!-- ====== SHOWCASE DE MARCA ====== -->
+    <section class="hero-brand-stage py-14 px-4 relative overflow-hidden">
+
+      <!-- Decoração de canto: imagem artesanal desbotada -->
+      <img data-bigger-detail="corner" src="/images/bigger_details/coracao_agulha_trim.png"
+           alt="" aria-hidden="true"
+           class="pointer-events-none select-none absolute bottom-4 right-6 h-32 w-auto object-contain opacity-10 rotate-12 hidden lg:block" />
+
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14 relative z-10">
+
+        <!-- Logo grande, lateralizada -->
+        <img src="/images/logo.png"
+             onerror="this.style.display='none'"
+             alt="Caseado.com"
+             class="h-48 sm:h-56 lg:h-72 w-auto object-contain drop-shadow-2xl flex-shrink-0" />
+
+        <!-- Nome do site ao lado -->
+        <div class="flex flex-col items-center sm:items-start text-center sm:text-left">
+          <h1 class="font-heading font-bold text-6xl sm:text-7xl lg:text-8xl text-primary leading-none tracking-tight">
+            Caseado.com
+          </h1>
+          <div class="h-0.5 w-16 bg-secondary/30 mt-4 mb-5 hidden sm:block"></div>
+          <p class="font-bold text-xl sm:text-2xl text-secondary" style="font-family:'Amatic SC',cursive; letter-spacing:0.08em;">
+            Artesanato de Bonecas
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Divisor escalonado → fundo de produtos -->
+      <div class="absolute bottom-0 left-0 right-0 pointer-events-none" aria-hidden="true">
+        <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+             class="w-full block" style="height:56px; display:block;">
+          <path d="M0,56 L0,34 C80,34 80,0 160,0 C240,0 240,34 320,34 C400,34 400,0 480,0 C560,0 560,34 640,34 C720,34 720,0 800,0 C880,0 880,34 960,34 C1040,34 1040,0 1120,0 C1200,0 1200,34 1280,34 C1360,34 1360,0 1440,0 L1440,56 Z"
+                fill="#DDF4F6"/>
+        </svg>
+      </div>
+    </section>
 
     <!-- ====== PRODUTOS ====== -->
-    <section id="produtos" class="py-14 relative" aria-label="Nossos produtos">
+    <section id="produtos" class="py-12 relative products-section" aria-label="Nossos produtos">
 
-      <!-- Detalhes decorativos de botoes nas laterais -->
+      <!-- Detalhes decorativos nas laterais -->
       <img src="/images/details/botoes_turquesa_roxo.png" alt="" aria-hidden="true"
-           class="pointer-events-none select-none absolute left-2 top-8 w-20 h-auto object-contain opacity-20 -rotate-12 hidden lg:block" />
+           class="pointer-events-none select-none absolute left-2 top-8 w-16 h-auto object-contain opacity-25 -rotate-12 hidden lg:block" />
       <img src="/images/details/botoes_amarelo_verde.png" alt="" aria-hidden="true"
-           class="pointer-events-none select-none absolute right-2 top-8 w-20 h-auto object-contain opacity-20 rotate-12 hidden lg:block" />
+           class="pointer-events-none select-none absolute right-2 top-8 w-16 h-auto object-contain opacity-25 rotate-12 hidden lg:block" />
 
-      <!-- Cabecalho da secao -->
-      <div class="text-center mb-10 px-4">
-        <h2 class="text-4xl font-heading text-base-content mb-3">Nossos Produtos</h2>
-        <!-- Ornamento: linha + botao PNG + linha -->
-        <div class="flex items-center justify-center gap-3 my-3">
-          <div class="h-px w-16 bg-secondary/40"></div>
+      <!-- Detalhes decorativos inferiores -->
+      <img src="/images/details/botoes_turquesa_roxo.png" alt="" aria-hidden="true"
+           class="pointer-events-none select-none absolute left-4 bottom-20 w-12 h-auto object-contain opacity-15 rotate-6 hidden lg:block" />
+      <img src="/images/details/botoes_amarelo_verde.png" alt="" aria-hidden="true"
+           class="pointer-events-none select-none absolute right-4 bottom-20 w-12 h-auto object-contain opacity-15 -rotate-6 hidden lg:block" />
+
+      <!-- Cabeçalho da seção -->
+      <div class="text-center mb-8 px-4">
+        <h2 class="text-3xl font-heading text-base-content mb-2">Nossos Produtos</h2>
+        <div class="flex items-center justify-center gap-3">
+          <div class="h-px w-12 bg-secondary/40"></div>
           <img data-botao-icon src="/images/icons/botao_06.png" alt="" aria-hidden="true"
-               class="w-7 h-7 object-contain opacity-60" />
-          <div class="h-px w-16 bg-secondary/40"></div>
+               class="w-6 h-6 object-contain opacity-60" />
+          <div class="h-px w-12 bg-secondary/40"></div>
         </div>
-        <p class="text-base-content/55 text-base">Escolha entre projetos digitais e kits exclusivos</p>
       </div>
 
       <div class="max-w-6xl mx-auto px-4 pb-8">
@@ -125,10 +138,10 @@
         <div id="grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
       </div>
 
-      <!-- Decoracao inferior: linha_coracao -->
-      <div class="flex justify-center mt-6 opacity-20" aria-hidden="true">
+      <!-- Decoração inferior: linha_coracao -->
+      <div class="flex justify-center mt-4 opacity-25" aria-hidden="true">
         <img src="/images/details/linha_coracao.png" alt=""
-             class="w-40 h-auto object-contain" />
+             class="w-36 h-auto object-contain" />
       </div>
     </section>
 
@@ -138,13 +151,13 @@
 
   <script type="module" src="/src/pages/products/productsPage.js"></script>
   <script type="module">
-    import { getCategoryIcon, getBiggerDetail, getButtonIcon } from "/src/utils/categories.js";
+    import { getCategoryIcon, getBiggerDetail, getButtonIcon, BUTTON_ICONS } from "/src/utils/categories.js";
     document.querySelectorAll("[data-cat-icon]").forEach(img => {
       img.src = getCategoryIcon(img.dataset.catIcon);
     });
-    document.querySelectorAll("[data-botao-icon]").forEach(img => {
-      img.src = getButtonIcon();
-    });
+    const botaoImgs = Array.from(document.querySelectorAll("[data-botao-icon]"));
+    const shuffled  = [...BUTTON_ICONS].sort(() => Math.random() - 0.5);
+    botaoImgs.forEach((img, i) => { img.src = shuffled[i % shuffled.length]; });
     let lastBigger = null;
     document.querySelectorAll("[data-bigger-detail]").forEach(img => {
       const picked = getBiggerDetail(lastBigger);

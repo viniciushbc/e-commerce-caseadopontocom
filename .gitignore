@@ -1,2 +1,18 @@
 .env
 node_modules/
+
+# AI assistant  front-end tool configs
+.agent/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.cursor/
+.gemini/
+.github/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.windsurf/
